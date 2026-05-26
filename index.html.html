@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DK Psychotherapies</title>
+  <meta name="description" content="Virtual psychotherapy for depression, anxiety and OCD. Flexible, secure online sessions." />
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#FAF3E0; /* cream background */
+      --bg-2:#F5E9D2; /* slightly deeper cream */
+      --text:#2E2E2E; /* dark grey text */
+      --muted:#8c8c8c;
+      --accent:#C1A57B; /* warm beige-gold accent */
+      --container:clamp(16rem, 90vw, 1100px);
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.15);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+
+    .nav{position:sticky;top:0;z-index:50;background:rgba(250,243,224,.95);backdrop-filter:saturate(180%) blur(6px);border-bottom:1px solid rgba(0,0,0,.05)}
+    .nav-inner{max-width:var(--container);margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
+    .brand{font-family:"Cormorant Garamond",serif;font-weight:700;letter-spacing:.06em}
+    .brand a{color:var(--text);text-decoration:none;font-size:1.15rem}
+    .menu{display:flex;gap:36px}
+    .menu a{color:var(--text);text-decoration:none;opacity:.85;letter-spacing:.08em}
+    .menu a:hover{opacity:1}
+    .burger{display:none}
+
+    .hero{position:relative;min-height:78vh;display:grid;align-items:center}
+    .hero .inner{max-width:var(--container);margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:100px 20px 100px;align-items:center}
+    .hero .content{max-width:600px;}
+    .hero .logo{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .hero .logo img{
+      max-width:100%;
+      height:260px;
+    }
+
+    .title{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(2.2rem,6vw,4.5rem);line-height:1.05;margin:.2em 0 .5em;text-align:left}
+    .lead{max-width:48ch;color:#444;margin:0}
+    .cta-row{margin-top:22px;display:flex;gap:16px;flex-wrap:wrap;justify-content:flex-start}
+    .btn{appearance:none;border:1.5px solid var(--accent);background:transparent;color:var(--text);padding:12px 22px;border-radius:999px;cursor:pointer;font-weight:600}
+    .btn:hover{background:var(--accent);color:white}
+
+    section{background:var(--bg)}
+    .section{max-width:var(--container);margin:auto;padding:90px 20px}
+
+    #about{position:relative;background:var(--bg-2)}
+    #about .card{background:white;border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);padding:36px;box-shadow:var(--shadow)}
+    h2{font-family:"Cormorant Garamond",serif;font-size:clamp(1.8rem,4vw,2.6rem);margin:0 0 .6em}
+
+    #specializations{background:var(--bg)}
+    .center{max-width:70ch;margin:auto;text-align:center}
+    .kickers{font-size:.85rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:60px}
+    .feature{background:white;border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);padding:22px 20px;box-shadow:var(--shadow);color:var(--text);font-size:0.95rem;}
+    .feature h3{font-family:"Cormorant Garamond",serif;font-size:1.4rem;margin:.2em 0 .5em}
+    .feature small{display:block;color:var(--muted);margin-bottom:6px}
+
+    #contact{background:#fdfdfb;color:#2E2E2E}
+    #contact .section{max-width:900px}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+    label{font-weight:600;font-size:.95rem}
+    input,textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid #cfd6cf;background:white;font:inherit}
+    textarea{min-height:120px;resize:vertical}
+    .full{grid-column:1/-1}
+    .submit{background:var(--accent);color:white;border:none;padding:14px 20px;border-radius:999px;font-weight:700;cursor:pointer}
+    .submit:hover{filter:brightness(1.05)}
+    .note{font-size:.95rem;color:#4a5e53;margin-top:12px}
+    .success-message{display:none;margin-top:16px;color:green;font-weight:600}
+
+    footer{background:var(--bg-2);color:#3a3a3a}
+    footer .section{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.95rem}
+    footer a{color:#2E2E2E}
+
+    .chat{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:var(--accent);display:grid;place-items:center;box-shadow:var(--shadow);cursor:pointer}
+    .chat span{width:22px;height:22px;border-radius:6px;border:2px solid white;position:relative}
+    .chat span::after{content:"";position:absolute;right:-5px;bottom:-5px;width:10px;height:10px;border-radius:3px;border:2px solid white}
+
+    /* Full-screen in-page “Privacy Policy” */
+    .page{display:none}
+    .page:target{
+      display:block; position:fixed; inset:0; z-index:1000;
+      background:var(--bg); color:var(--text); overflow:auto;
+    }
+    .page .wrap{max-width:clamp(16rem, 90vw, 850px); margin:0 auto; padding:48px 20px 80px;}
+    .page h1{font-family:"Cormorant Garamond",serif; font-size:clamp(1.8rem,4vw,2.4rem); margin:0 0 .6em;}
+    .page .back{
+      display:inline-block; margin-bottom:24px; text-decoration:none; font-weight:600;
+      border:1.5px solid var(--accent); padding:10px 16px; border-radius:999px;
+    }
+    .page .back:hover{background:var(--accent); color:white}
+
+    @media (max-width: 860px){
+      .hero .inner{grid-template-columns:1fr}
+      .hero .logo{margin-top:20px;height:180px}
+      .grid3{grid-template-columns:1fr}
+      form{grid-template-columns:1fr}
+      .menu{display:none}
+      .burger{display:block}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <a href="#home">DK Psychotherapies</a>
+      </div>
+      <nav class="menu">
+        <a href="#home">HOME</a>
+        <a href="#about">ABOUT</a>
+        <a href="#specializations">THERAPIES</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+      <button class="burger btn" onclick="toggleMobile()">Menu</button>
+    </div>
+  </header>
+
+  <main id="home" class="hero">
+    <div class="inner">
+      <div class="content">
+        <h1 class="title">DK PSYCHOTHERAPIES</h1>
+        <p class="lead">Welcome to DK Psychotherapies, a specialized virtual therapy practice focused on providing support and treatment for depression, anxiety, and OCD. Our goal is to help you find inner peace and emotional balance, all through convenient online sessions.</p>
+        <div class="cta-row">
+          <a class="btn" href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="logo">
+        <img src="./dklogo.png" alt="DK Psychotherapies Logo" />
+      </div>
+    </div>
+  </main>
+
+  <section id="about">
+    <div class="section">
+      <div class="card">
+        <h2>About</h2>
+        <p>With over 20 years of experience in mental health care, I have worked across acute mental health services, urgent care, secondary care, and primary care within the NHS. Alongside this, I bring 5 years of experience in private practice as a psychotherapist. I am a BABCP-accredited Cognitive Behavioural Therapist (CBT) and an EMDR Europe-accredited EMDR practitioner. In addition to clinical practice, I have contributed to the training and development of future therapists as a clinical supervisor at the University of Birmingham.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="specializations">
+    <div class="section center">
+      <div class="kickers">Our Specializations</div>
+      <h2>Therapies & Approaches</h2>
+
+      <div class="grid3">
+        <article class="feature">
+          <h3>Core Therapies</h3>
+          <small>CBT & EMDR</small>
+          <p>I am experienced in delivering evidence-based Cognitive Behavioural Therapy (CBT) and Eye Movement Desensitisation and Reprocessing (EMDR) for a wide range of difficulties.</p>
+        </article>
+        <article class="feature">
+          <h3>Integrative Approaches</h3>
+          <small>Counselling & More</small>
+          <p>I also provide therapy using integrative approaches including counselling, solution-focused therapy, Dialectical Behaviour Therapy (DBT), mindfulness, and compassion-focused therapy.</p>
+        </article>
+        <article class="feature">
+          <h3>Inclusive Practice</h3>
+          <small>Languages & Communities</small>
+          <p>I offer sessions in English, Hindi, Punjabi, and Urdu, and bring experience working with diverse communities, cultures, and sexual orientations, ensuring therapy is inclusive and respectful.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section">
+      <div class="center">
+        <h2>Get in Touch</h2>
+        <p>Please share your details below and we will respond shortly.</p>
+      </div>
+      <form id="contactForm" action="https://formspree.io/f/xkgvykqa" method="POST">
+        <div>
+          <label for="first">First name *</label>
+          <input id="first" name="first" required />
+        </div>
+        <div>
+          <label for="last">Last name *</label>
+          <input id="last" name="last" required />
+        </div>
+        <div class="full">
+          <label for="email">Email *</label>
+          <input id="email" type="email" name="email" required />
+        </div>
+        <div class="full">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" />
+        </div>
+        <div class="full">
+          <label for="msg">Message</label>
+          <textarea id="msg" name="message" placeholder="How can we help?"></textarea>
+        </div>
+        <div class="full">
+          <button class="submit" type="submit">Submit</button>
+        </div>
+        <p id="successMessage" class="success-message">Thank you — your message has been sent successfully. We will be in touch soon.</p>
+      </form>
+      <p class="note">By submitting, you agree to our <a href="#privacy">Privacy Policy</a>.</p>
+    </div>
+  </section>
+
+  <section id="privacy" class="page" aria-labelledby="privacy-title">
+    <div class="wrap">
+      <a href="#home" class="back" aria-label="Go back">← Back</a>
+      <h1 id="privacy-title">Privacy Policy</h1>
+      <p><strong>Effective Date:</strong> September 10, 2025</p>
+      <p>At DK Psychotherapies, we value your privacy. When you use our website or contact us, we may collect personal details such as your name, email, phone number, and any information you choose to provide. This information is used only to respond to your enquiries, provide psychotherapy services, and manage appointments.</p>
+      <p>We do not sell or share your information with third parties, except where required by law. Your data is stored securely, and you have the right to request access, correction, or deletion of your personal information at any time.</p>
+      <p>For questions about this Privacy Policy, please contact us at <a href="mailto:dkpsychotherapies@gmail.com">dkpsychotherapies@gmail.com</a>.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="section">
+      <div>© <span id="year"></span> DK Psychotherapies</div>
+      <div>
+        <a href="#privacy">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="chat" title="Chat (placeholder)">
+    <span aria-hidden="true"></span>
+  </button>
+
+  <script>
+    function toggleMobile(){
+      const existing = document.querySelector('.mobile');
+      if(existing){ existing.remove(); return; }
+      const m = document.createElement('nav');
+      m.className = 'mobile';
+      m.style.position='fixed';m.style.inset='56px 0 auto 0';m.style.background='var(--bg)';m.style.padding='18px 22px';m.style.display='grid';m.style.gap='16px';m.style.borderBottom='1px solid rgba(255,255,255,.08)';
+      ['HOME','#home','ABOUT','#about','THERAPIES','#specializations','CONTACT','#contact'].forEach((t,i)=>{
+        if(i%2===0){
+          const a = document.createElement('a'); a.textContent=t; a.href=arguments[++i]; a.style.color='var(--text)'; a.style.textDecoration='none'; a.style.fontWeight='600'; a.onclick=()=>m.remove(); m.appendChild(a);
+        }
+      });
+      document.body.appendChild(m);
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Show success message after form submit
+    const form = document.getElementById('contactForm');
+    const successMsg = document.getElementById('successMessage');
+    form.addEventListener('submit', function(){
+      setTimeout(()=>{
+        successMsg.style.display = 'block';
+      }, 500);
+    });
+  </script>
+</body>
+</html>
